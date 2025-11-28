@@ -1,0 +1,160 @@
+.banner-simple {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 7px;
+  padding: 10px;
+  width: 820px;
+  margin: 25px auto;
+  margin-top: 170px;
+  max-width: 800px;
+  text-align: center;
+  /* backdrop-filter: blur(10px); */
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.banner-text h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.banner-text p {
+  font-size: 1.1rem;
+  color: #636e72;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.banner-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff6b6b;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #636e72;
+  font-weight: 500;
+}
+
+/* Летающие смайлики */
+.floating-emojis {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-emoji {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0.7;
+  animation: float-around 6s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes float-around {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(10px, -15px) rotate(5deg) scale(1.1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-5px, 10px) rotate(-3deg) scale(0.9);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translate(15px, 5px) rotate(2deg) scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Дополнительная анимация для разнообразия */
+.floating-emoji:nth-child(odd) {
+  animation: float-rotate 8s ease-in-out infinite;
+}
+
+@keyframes float-rotate {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(15px, -20px) rotate(120deg) scale(1.15);
+  }
+  66% {
+    transform: translate(-10px, 15px) rotate(240deg) scale(0.85);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .banner-simple {
+    padding: 30px 20px;
+    margin: 20px;
+    min-height: 250px;
+  }
+  
+  .banner-text h2 {
+    font-size: 1.7rem;
+  }
+  
+  .banner-stats {
+    gap: 20px;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+  }
+  
+  .floating-emoji {
+    font-size: 1.5rem;
+  }
+  
+  /* Меньше смайликов на мобильных */
+  .floating-emoji:nth-child(n+4) {
+    display: none;
+  }
+}
+
+/* Анимация появления */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.banner-simple {
+  animation: fadeInScale 0.8s ease-out;
+}

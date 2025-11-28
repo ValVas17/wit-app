@@ -1,0 +1,223 @@
+.lesson-card {
+  width: 365px;
+  height: 360px;
+  background: #ffffff;
+  border-radius: 7px;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  /* padding: 24px; */
+  margin: 16px 0;
+  /* border: 1px solid #f0f0f0; */
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.lesson-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Header Styles */
+.header {
+  width: 363px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 20px; */
+  gap: 12px;
+}
+
+.lesson-number-container {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.lesson-number-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #66e1ea 0%, #ff6b6b 100%);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.lesson-number-foreground {
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  z-index: 3;
+}
+
+/* .label {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+} */
+
+/* Content Styles */
+.lesson-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.lesson-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3748;
+  padding-top: 18px;
+  padding-left: 42px;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.lesson-desc {
+  font-size: 14px;
+  width: 210px;
+  padding-left: 26px;
+  color: #718096;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+/* Skills Styles */
+.skill-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.skill-label {
+  align-items: end;
+  background: #f7fafc;
+  color: #4a5568;
+  padding: 3px 6px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.skill-label:hover {
+  background: #edf2f7;
+  transform: translateY(-1px);
+}
+
+.skill-label.no-skills {
+  background: #fff5f5;
+  color: #c53030;
+  border-color: #fed7d7;
+}
+
+/* Image Container */
+.image-container {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  /* background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Line Separator */
+.line-container {
+  height: 1px;
+  /* padding-left: 30px; */
+  background: linear-gradient(90deg, transparent 0%, #e2e8f0 50%, transparent 100%);
+  margin: 8px 33px;
+}
+
+/* Footer Styles */
+.footer {
+  display: flex;
+  padding-left: 24px;
+  padding-right: 22px;
+  justify-content: space-between;
+  align-items: center;
+  /* gap: 16px; */
+}
+
+.score {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+  background: #f7fafc;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .lesson-card {
+    padding: 20px;
+    margin: 12px 0;
+  }
+  
+  .lesson-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .image-container {
+    align-self: center;
+  }
+/*   
+  .footer {
+    background-color: red;
+    padding: 24px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  } */
+  
+  .score {
+    text-align: center;
+  }
+}
+
+/* Animation for state changes */
+.lesson-card.completed {
+  border-left: 4px solid #48bb78;
+}
+
+.lesson-card.in-progress {
+  border-left: 4px solid #ed8936;
+}
+
+.lesson-card.locked {
+  opacity: 0.6;
+  background: #f7fafc;
+}

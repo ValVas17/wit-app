@@ -1,0 +1,27 @@
+.score-line-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.score-line-button {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #636e72;
+  padding: 8px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.score-line-button:hover {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.score-line-button.active {
+  background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+  border-color: transparent;
+  color: white;
+}
