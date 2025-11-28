@@ -4,7 +4,7 @@ import { MainButton } from "./MainButton";
 import { TopActiveButton } from "./TopActiveButton";
 import { TopPassButton } from "./TopPassButton";
 import { SignInForm } from "./SignInForm";
-import wit_img from './img/wit-Photoroom.png';
+import wit_img from './img/изображение.png';
 import Modal from "./Modal";
 
 export const Header = (props) => {
@@ -45,18 +45,18 @@ export const Header = (props) => {
                 <div className="header-content"></div>
                 <div className='origin'>
                     <ul>
-                        <li><img src={wit_img} alt="wit" className="header-logo" /></li>
-                        <li><TopActiveButton text='Lesson' /></li>
-                        <li><TopPassButton text='Lesson' /></li>
-                        <li><TopPassButton text='Lesson' /></li>
-                        <li>
+                        <li><img src={wit_img} className="header-logo" /></li>
+                        <li className="header-padding"><TopActiveButton text='Lesson' /></li>
+                        <li className="header-padding"><TopPassButton text='Lesson' /></li>
+                        <li className="header-padding"><TopPassButton text='Lesson' /></li>
+                        <li className="header-padding">
                         <div className="user-info">
                             <div className="user-avatar">👤</div>
                             <span className="user-name">User Name</span>
                         </div>
                         </li>
                         {/* <li><MainButton text='Sign in' onClick={toggleModal}/></li> */}
-                        <li>
+                        <li className="header-padding">
                             <div className='origin' onClick={toggleModal}>
                                 <div className="main-button-container">
                                     <button className="main-button-background">Sign in</button>

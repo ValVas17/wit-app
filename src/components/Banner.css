@@ -1,5 +1,6 @@
 .banner-simple {
-  background: rgba(255, 255, 255, 0.92);
+  background: #fff;
+  /* background: rgba(255, 255, 255, 0.92); */
   border-radius: 7px;
   padding: 10px;
   width: 820px;

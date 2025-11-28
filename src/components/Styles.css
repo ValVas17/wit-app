@@ -18,9 +18,13 @@
 }
 
 .header-logo {
-    height: 80px;
-    /* max-width: 100px; */
+    height: 100px;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.header-logo:hover {
+    transform: scale(1.8);
 }
 
 /* .name-colour {
@@ -101,12 +105,13 @@ ui li {
   width: 110px;
   height: 40px;
   border-radius: 7px;
-  border: none; /* Убираем обычную рамку */
+  border: none;
   color: #222; 
   font-size: 16px;
   cursor: pointer;
   position: relative; 
   z-index: 1; 
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
   font-family: 'Inter', sans-serif;
   font-weight: normal;
 }
@@ -573,6 +578,8 @@ ui li {
   justify-content:center;
   align-items:end;
   margin-top: 10px;
+  padding-bottom: 30px;
+  gap: 70px
 }
 
 .forgot-password {
@@ -678,9 +685,9 @@ body.active-modal {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 4px 20px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
@@ -689,45 +696,77 @@ body.active-modal {
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 12px 20px;
+  margin: 0 0;
+  padding: 0px 0px;
   gap: 30px;
 }
 
+.header-padding {
+  padding-top: 18px;
+}
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50px;
-  border: 1px solid rgba(255, 107, 107, 0.2);
+  gap: 12px;
+  margin-top: 8px;
+  padding: 4px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.user-info::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: #ff6b6b;
+  /* background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #ffe66d); */
+  border-radius: 7px;
+  z-index: -1;
+  padding: 1.5px;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.7;
 }
 
 .user-info:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.25);
+  /* transform: translateY(-2px); */
+  /* border: #ff6b6b; */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.3);
+  /* background: linear-gradient(135deg, #ff6b6b, #4ecdc4); */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .user-name {
-  font-weight: 500;
-  color: #adadad;
+  font-weight: 600;
+  color: #2d3436;
   font-size: 0.9rem;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
 }
-
 
 .lessons-header {
   display: grid;
@@ -743,39 +782,248 @@ body.active-modal {
   font-size: 2.5rem;
   font-weight: 400;
   justify-self: start;
-  color: #acacac;
+  color: #d8d8d8;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9);
   position: relative;
   display: inline-block;
   margin-left: 32px;
 }
 
-/* .lessons-title::after {
+.lessons-title::after {
   content: '';
   position: absolute;
   bottom: -8px;
   left: 0px;
-  width: 550px;
-  height: 3px; */
-  /* background: linear-gradient(90deg, #ff6b6b, #a9f8f3, #ff6b6b); */
+  width: 650px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6b6b, transparent);
   /* background-size: 400% 400%; */
-  /* animation: gradientShift 3s ease infinite; */
+  animation: gradientShift 3s ease infinite;
   /* background: #ff6b6b; */
   /* border-radius: 5px; */
-/* } */
+}
 
-.lessons-line {
+/* .lessons-line {
   font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
-  /* color: #636e72; */
-  background: linear-gradient(90deg, #ff6b6b, #92d6d2);
+  background: linear-gradient(90deg, #4ecdc4, #95e19b, #ffe66d, #ff6b6b); */
+  /* background: linear-gradient(90deg, #ff6b6b, #92d6d2); */
   /* background: rgba(255, 255, 255, 0.8); */
-  padding: 10px 20px;
+  /* padding: 10px 80px;
   border-radius: 25px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  justify-self: end; /* Явно прижимаем к правому краю */
+  justify-self: end; 
   margin-right: 32px;
   white-space: nowrap;
+} */
+
+.lessons-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background: linear-gradient(90deg, #4ecdc4, #95e19b, #ffe66d, #ff6b6b); */
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 40px;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  justify-self: end;
+  margin-right: 32px;
+  white-space: nowrap;
+  gap: 8px;
+  width: 320px;
+  position: relative;
+}
+
+.difficulty-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 5px;
+}
+
+.striped-scale {
+  display: flex;
+  width: 160px;
+  height: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.level-segment {
+  flex: 1;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-segment:hover {
+  filter: brightness(3);
+  transform: scaleY(4);
+  z-index: 5;
+}
+
+/* Исправленные стили для всплывающих подсказок */
+.level-segment .tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: #2d3436;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 100;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.level-segment .tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #2d3436;
+}
+
+.level-segment:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Цвета сегментов */
+.segment-1 {
+  background: #4ecdc4; /* Бирюзовый */
+}
+.segment-2 {
+  background: #95e1d3; /* Светло-бирюзовый */
+}
+.segment-3 {
+  background: #ffe66d; /* Желтый */
+}
+.segment-4 {
+  background: #ff6b6b; /* Красный */
+}
+
+/* Стили для иконок-растений */
+.level-markers {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  /* margin-top: 2px; */
+}
+
+.level-marker {
+  font-size: 1.6rem;
+  width: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+
+.level-marker:hover {
+  transform: scale(2);
+}
+
+.marker-1::before { content: "🌱"; }
+.marker-2::before { content: "🌿"; }
+.marker-3::before { content: "🌳"; }
+.marker-4::before { content: "🚀"; }
+
+/* Подсказки для иконок */
+.level-marker .marker-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: #2d3436;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 100;
+  margin-bottom: 5px;
+}
+
+.level-marker .marker-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: #2d3436;
+}
+
+.level-marker:hover .marker-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .lessons-line {
+    margin-right: 20px;
+    padding: 10px 15px;
+    min-width: 180px;
+  }
+  
+  .striped-scale {
+    width: 140px;
+  }
+  
+  .level-markers {
+    width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lessons-line {
+    margin-right: 10px;
+    padding: 8px 12px;
+    min-width: 160px;
+  }
+  
+  .striped-scale {
+    width: 120px;
+    height: 20px;
+  }
+  
+  .level-markers {
+    width: 120px;
+  }
+  
+  .level-marker {
+    font-size: 0.7rem;
+  }
+  
+  .difficulty-label {
+    font-size: 0.8rem;
+  }
 }

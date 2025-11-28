@@ -1,60 +1,83 @@
 import React, { Component } from "react";
-// import './Styles.css'
 import './Lesson.css'
 import { MainButton } from "./MainButton";
-// import image9 from './img/image9.png';
 
 class Lesson extends Component {
+    constructor(props) {
+        super(props);
+        this.descRef = React.createRef();
+        this.state = {
+            isTextTruncated: false
+        };
+    }
+
+    componentDidMount() {
+        this.checkTextTruncation();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.description !== this.props.description) {
+            this.checkTextTruncation();
+        }
+    }
+
+    checkTextTruncation = () => {
+        // Проверяем, обрезан ли текст с помощью -webkit-line-clamp
+        const element = this.descRef.current;
+        if (element) {
+            // Если scrollHeight больше clientHeight, значит текст обрезан
+            const isTruncated = element.scrollHeight > element.clientHeight;
+            this.setState({ isTextTruncated: isTruncated });
+        }
+    }
+
     render() {
         const { lessonNumber, label, title, description, skills, imageSrc, score, level, state } = this.props;
+        const { isTextTruncated } = this.state;
 
         return (
-            <div>
-
-                <div className="lesson-card">
-
+            <div className="lesson-card">
+                {/* Header */}
                 <div className="header">
                     <div className="lesson-number-container">
                         <div className="lesson-number-background">№{lessonNumber}</div>
                         <div className="lesson-number-foreground"></div>
                     </div>
-                    {/* <div className="lesson-number">№1</div> */}
                     <div className="label">{label}</div>
                 </div>  
-                    <div>
-                        <div className="lesson-content">
-                            <div>
-                                <p className="lesson-title">{title}</p>
-                                <p className="lesson-desc">{description}</p>
 
-                                {/* <div className="skill-labels"> */}
-                                {/* <span className="skill-label">vocabulary</span> */}
-                                {/* <span className="skill-label">reading</span> */}
-                                {/* <span className="skill-label">writing skills</span> */}
-                                {/* </div> */}
+                {/* Основной контент с фиксированной высотой */}
+                <div className="lesson-content-wrapper">
+                    <div className="lesson-content">
+                        <div className="text-content">
+                            <p className="lesson-title">{title}</p>
+                            <p 
+                                ref={this.descRef}
+                                className={`lesson-desc ${isTextTruncated ? 'truncated' : ''}`}
+                            >
+                                {description}
+                            </p>
 
-                                <div className="skill-labels">
-                                    {Array.isArray(skills) && skills.length > 0 ? (
-                                        skills.map((skill, index) => (
-                                            <span key={skill + index} className="skill-label">{skill}</span>
-                                        ))
-                                    ) : (
-                                        <span className="skill-label no-skills">No specific skills listed</span>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="image-container">
-                                {/* <img src={imageSrc} alt="girl" /> */}
-                                {/* {imageSrc && <img src={imageSrc} alt="girl" />} */}
+                            <div className="skill-labels">
+                                {Array.isArray(skills) && skills.length > 0 ? (
+                                    skills.map((skill, index) => (
+                                        <span key={skill + index} className="skill-label">{skill}</span>
+                                    ))
+                                ) : (
+                                    <span className="skill-label no-skills">No specific skills listed</span>
+                                )}
                             </div>
                         </div>
 
-
+                        <div className="image-container">
+                            {/* {imageSrc && <img src={imageSrc} alt="lesson illustration" />} */}
+                        </div>
                     </div>
+                </div>
 
-                    <div className="line-container" />
-
+                {/* Разделитель и футер - всегда внизу */}
+                <div className="bottom-section">
+                    <div className="line-container"></div>
                     <div className="footer">
                         <MainButton text='Repeat' />
                         <div className="score">Your score: {score}/{level}</div>

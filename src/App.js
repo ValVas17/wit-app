@@ -27,14 +27,31 @@ class App extends Component {
         <WeeklyPhrase phrase='When pigs fly' 
                       meaning='Never.' 
                       example='He`ll clean his room when pigs fly.' 
-                      src='/images/flying-pig.png'
+                      src='{Image}'
                       alt='Flying Pig Illustration' 
                       emojis='🐷✨' />
 
         <div className="lessons-header">
           <div className="lessons-title">Lessons</div>
           {/* <ScoreLine/> */}
-          <div className="lessons-line">Score Line</div>
+          {/* <div className="lessons-line">Score Line</div> */}
+        <div className="lessons-line">
+          {/* <div className="difficulty-label">Difficulty Scale</div> */}
+          <div className="level-markers">
+            <span className="level-marker marker-1">
+              <div className="marker-tooltip">Freshman</div>
+            </span>
+            <span className="level-marker marker-2">
+              <div className="marker-tooltip">Sophomore</div>
+            </span>
+            <span className="level-marker marker-3">
+              <div className="marker-tooltip">Junior</div>
+            </span>
+            <span className="level-marker marker-4">
+              <div className="marker-tooltip">Senior</div>
+            </span>
+          </div>
+        </div>
         </div>
 
         <div className="lessons-container">
@@ -51,7 +68,7 @@ class App extends Component {
                   label='Freshman' 
                   title='Food' 
                   description='I scream! You scream! We all scream for Ice Cream!!!' 
-                  skills={['vocabulary', 'reading', 'writing skills', 'listening']} 
+                  skills={['vocabulary', 'reading', 'listening']} 
                   imageSrc={img9} 
                   score='2' 
                   level='7'
@@ -60,7 +77,7 @@ class App extends Component {
                   label='Freshman' 
                   title='Animals' 
                   description='Learning all about animals: their names, habitats and other vocabulary (lalala)' 
-                  skills={['vocabulary', 'reading', 'writing skills', 'listening']} 
+                  skills={['writing skills', 'listening']} 
                   imageSrc={img9} 
                   score='2' 
                   level='7'
@@ -69,7 +86,7 @@ class App extends Component {
                   label='Freshman' 
                   title='Animals' 
                   description='Learning all about animals: their names, habitats and other vocabulary (lalala)' 
-                  skills={['vocabulary', 'reading', 'writing skills', 'listening']} 
+                  skills={['vocabulary', 'reading', 'writing skills', 'listening', 'speaking', 'writing']} 
                   imageSrc={img9} 
                   score='2' 
                   level='7'

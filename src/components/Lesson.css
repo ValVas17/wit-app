@@ -3,14 +3,13 @@
   height: 360px;
   background: #ffffff;
   border-radius: 7px;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
-  /* padding: 24px; */
   margin: 16px 0;
-  /* border: 1px solid #f0f0f0; */
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Главная ось - вертикальная */
 }
 
 .lesson-card:hover {
@@ -18,20 +17,37 @@
   transform: translateY(-2px);
 }
 
+/* .lesson-card:hover .lesson-desc {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  display: block;
+  background: linear-gradient(155deg, #f7feff 0%, #ffffff 100%);
+  padding: 12px;
+  margin: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 20;
+  max-height: 200px;
+  overflow-y: auto;
+} */
+
 /* Header Styles */
 .header {
   width: 363px;
   height: 70px;
   display: flex;
   align-items: center;
-  /* margin-bottom: 20px; */
   gap: 12px;
+  flex-shrink: 0; /* Запрещаем сжатие хедера */
 }
 
 .lesson-number-container {
   position: relative;
   width: 40px;
   height: 40px;
+  margin-left: 14px;
 }
 
 .lesson-number-background {
@@ -62,55 +78,69 @@
   z-index: 3;
 }
 
-/* .label {
-  background: #e3f2fd;
-  color: #1976d2;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-} */
+/* Обертка для основного контента */
+.lesson-content-wrapper {
+  flex: 1; /* Занимает все доступное пространство между хедером и футером */
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Важно для корректного сжатия в flex-контейнере */
+}
 
-/* Content Styles */
 .lesson-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  margin-bottom: 20px;
+  flex: 1; /* Контент растягивается на всю доступную высоту */
+  padding: 0 8px;
+}
+
+.text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Для корректной работы overflow */
 }
 
 .lesson-title {
   font-size: 20px;
   font-weight: 700;
   color: #2d3748;
-  padding-top: 18px;
-  padding-left: 42px;
-  margin: 0 0 8px 0;
+  margin: 0 0 8px 18px;
   line-height: 1.3;
+  padding-top: 18px;
+  /* padding-left: 18px; */
 }
 
 .lesson-desc {
   font-size: 14px;
   width: 210px;
-  padding-left: 26px;
   color: #718096;
   margin: 0 0 16px 0;
   line-height: 1.5;
+  flex: 1; /* Описание занимает доступное пространство */
+  overflow: hidden; /* Обрезаем длинный текст */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Ограничиваем количество строк */
+  -webkit-box-orient: vertical;
 }
+
+/* .lesson-desc:hover {
+  display: -webkit-box;
+  -webkit-line-clamp: ; 
+  -webkit-box-orient: vertical;
+} */
 
 /* Skills Styles */
 .skill-labels {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: auto; /* Прижимаем навыки к низу текстового контента */
+  padding-bottom: 8px;
 }
 
 .skill-label {
-  align-items: end;
   background: #f7fafc;
   color: #4a5568;
   padding: 3px 6px;
@@ -135,11 +165,12 @@
 /* Image Container */
 .image-container {
   flex-shrink: 0;
-  width: 80px;
+  width: 82px;
+  /* padding-top: 48px; */
+  /* background-color: #48bb78; */
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
-  /* background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,22 +182,24 @@
   object-fit: cover;
 }
 
-/* Line Separator */
+/* Нижняя секция - всегда внизу */
+.bottom-section {
+  flex-shrink: 0; /* Запрещаем сжатие */
+  margin-top: auto; /* Прижимаем к низу */
+}
+
 .line-container {
   height: 1px;
-  /* padding-left: 30px; */
   background: linear-gradient(90deg, transparent 0%, #e2e8f0 50%, transparent 100%);
-  margin: 8px 33px;
+  margin: 0 32px;
 }
 
 /* Footer Styles */
 .footer {
   display: flex;
-  padding-left: 24px;
-  padding-right: 22px;
+  padding: 18px 24px;
   justify-content: space-between;
   align-items: center;
-  /* gap: 16px; */
 }
 
 .score {
@@ -182,7 +215,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .lesson-card {
-    padding: 20px;
+    padding: 0;
     margin: 12px 0;
   }
   
@@ -194,14 +227,6 @@
   .image-container {
     align-self: center;
   }
-/*   
-  .footer {
-    background-color: red;
-    padding: 24px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  } */
   
   .score {
     text-align: center;
@@ -220,4 +245,97 @@
 .lesson-card.locked {
   opacity: 0.6;
   background: #f7fafc;
+}
+
+
+/* Стили для разворачивания текста при наведении ТОЛЬКО если текст обрезан */
+.lesson-desc.truncated {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Индикатор того, что текст обрезан (только для обрезанного текста) */
+.lesson-desc.truncated:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(transparent, #ffffff);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.lesson-card:hover .lesson-desc.truncated {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  display: block;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 12px;
+  margin: 8px 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 20;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.lesson-card:hover .lesson-desc.truncated:after {
+  opacity: 0;
+}
+
+/* Стили скроллбара только для развернутого текста */
+.lesson-card:hover .lesson-desc.truncated::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lesson-card:hover .lesson-desc.truncated::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.lesson-card:hover .lesson-desc.truncated::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.lesson-card:hover .lesson-desc.truncated::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Анимация появления полного текста только для обрезанного */
+.lesson-card:hover .lesson-desc.truncated {
+  animation: expandText 0.3s ease-out;
+}
+
+@keyframes expandText {
+  from {
+    opacity: 0.8;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .lesson-card:hover .lesson-desc.truncated {
+    max-height: 150px;
+    margin: 8px -8px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lesson-card:hover .lesson-desc.truncated {
+    max-height: 120px;
+    font-size: 13px;
+  }
 }
