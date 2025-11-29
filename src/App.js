@@ -8,21 +8,22 @@ import WeeklyPhrase from './components/WeeklyPhrase';
 import img9 from './components/img/image9.jpg'
 import ScoreLine from './components/ScoreLine';
 import Footer from './components/Footer';
+import LessonDetail from './components/LessonDetail';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        
-      <div className="background-blobs">
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <div className="blob blob-3"></div>
-        <div className="blob blob-4"></div>
-      </div>
+        <div className="background-blobs">
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <div className="blob blob-3"></div>
+          <div className="blob blob-4"></div>
+        </div>
 
-        <Header/>
-        {/* <SignInForm/> */}
+        <div className="main-content">
+          <Header />
+                  {/* <SignInForm/> */}
         <Banner moduleNum='35' taskNum='143'/>
         <WeeklyPhrase phrase='When pigs fly' 
                       meaning='Never.' 
@@ -35,9 +36,9 @@ class App extends Component {
           <div className="lessons-title">Lessons</div>
           {/* <ScoreLine/> */}
           {/* <div className="lessons-line">Score Line</div> */}
-        <div className="lessons-line">
+        {/* <div className="lessons-line"> */}
           {/* <div className="difficulty-label">Difficulty Scale</div> */}
-          <div className="level-markers">
+          {/* <div className="level-markers">
             <span className="level-marker marker-1">
               <div className="marker-tooltip">Freshman</div>
             </span>
@@ -51,7 +52,7 @@ class App extends Component {
               <div className="marker-tooltip">Senior</div>
             </span>
           </div>
-        </div>
+        </div> */}
         </div>
 
         <div className="lessons-container">
@@ -93,9 +94,10 @@ class App extends Component {
                   state='3'/>
         </div>
 
-        <Footer/>
 
+        </div>
 
+        <Footer />
       </div>
     );
   }

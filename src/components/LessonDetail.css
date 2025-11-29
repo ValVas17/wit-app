@@ -1,0 +1,522 @@
+/* LessonDetail.css */
+
+.lesson-detail-page {
+  display: flex;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 120px auto 60px;
+  padding: 0 20px;
+  min-height: calc(100vh - 200px);
+}
+
+/* Левая колонка - Теория */
+.lesson-detail-left {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  margin-top: 80px;
+  padding: 30px;
+  width: 500px;
+  height: 550px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+  /* max-height: 80vh; */
+  overflow-y: auto;
+}
+
+.theory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.theory-header h2 {
+  margin: 0;
+  color: #2d3436;
+  font-size: 1.8rem;
+}
+
+.difficulty-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.difficulty-badge.intermediate {
+  background: linear-gradient(135deg, #ffe66d, #ffa94d);
+  color: #2d3436;
+}
+
+.theory-section {
+  margin-bottom: 25px;
+}
+
+.theory-section h3 {
+  color: #2d3436;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theory-section p, .theory-section li {
+  color: #3b4244;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.theory-section ul {
+  padding-left: 20px;
+}
+
+.theory-section li {
+  margin-bottom: 6px;
+}
+
+.structure-example {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #4ecdc4;
+}
+
+.structure-example div {
+  margin-bottom: 8px;
+  font-family: 'Courier New', monospace;
+}
+
+.examples-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.example-card {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.example-text {
+  font-style: italic;
+  color: #2d3436;
+  margin-bottom: 4px;
+}
+
+.example-note {
+  font-size: 0.8rem;
+  color: #636e72;
+}
+
+.theory-tips {
+  background: linear-gradient(135deg, #fff9db, #fff3bf);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #ffe066;
+}
+
+.theory-tips h3 {
+  margin-top: 0;
+}
+
+/* Правая колонка - Практика */
+.lesson-detail-right {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  min-width: 700px;
+  padding: 30px;
+  flex: 1;
+  min-height: 550px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  position: relative;
+  margin-top: 80px; /* Отступ для закладок */
+}
+
+/* Контейнер для закладок */
+.bookmark-tabs {
+  position: absolute;
+  top: -50px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+/* Стили отдельных закладок */
+.bookmark-tab {
+  flex: 1;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px 12px 0 0;
+  padding: 8px 0 0 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: none;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+  min-height: 50px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bookmark-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  border-radius: 0 0 10px 0;
+  box-shadow: 4px 4px 0 4px #f8f9fa;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+}
+
+.bookmark-tab::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  border-radius: 0 0 0 10px;
+  box-shadow: -4px 4px 0 4px #f8f9fa;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+}
+
+.bookmark-tab.active {
+  background: linear-gradient(135deg, #4ecdc4, #45b7b0);
+  transform: translateY(-5px);
+  box-shadow: 0 -6px 20px rgba(78, 205, 196, 0.3);
+  z-index: 15;
+}
+
+.bookmark-tab.active::before {
+  box-shadow: 4px 4px 0 4px #4ecdc4;
+}
+
+.bookmark-tab.active::after {
+  box-shadow: -4px 4px 0 4px #4ecdc4;
+}
+
+.bookmark-tab-content {
+  padding: 8px 15px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.tab-number {
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #2d3436;
+}
+
+.bookmark-tab.active .tab-number {
+  background: rgba(255, 255, 255, 0.95);
+  color: #4ecdc4;
+}
+
+.tab-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #636e72;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.bookmark-tab.active .tab-title {
+  color: white;
+}
+
+.bookmark-tab:hover:not(.active) {
+  background: linear-gradient(135deg, #e9ecef, #dee2e6);
+  transform: translateY(-2px);
+}
+
+/* Остальные стили практической части */
+.practice-content {
+  margin-top: 10px;
+}
+
+.practice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.practice-header h2 {
+  margin: 0;
+  color: #2d3436;
+  font-size: 1.8rem;
+}
+
+.progress-indicator {
+  background: #4ecdc4;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.task-content {
+  min-height: 400px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.instruction {
+  font-size: 1.1rem;
+  color: #4a5255;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.sentence-with-blanks {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 25px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.blank-input {
+  border: none;
+  border-bottom: 2px dashed #4ecdc4;
+  background: transparent;
+  margin: 0 5px;
+  padding: 5px 8px;
+  width: 100px;
+  text-align: center;
+  font-size: 1rem;
+  outline: none;
+}
+
+.blank-input:focus {
+  border-bottom: 2px solid #ff6b6b;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 20px 0;
+  color: #2d3436;
+}
+
+.options-grid {
+  display: grid;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option-label:hover {
+  border-color: #4ecdc4;
+  background: #f8f9fa;
+}
+
+.option-label input[type="radio"] {
+  margin: 0;
+}
+
+.option-text {
+  flex: 1;
+}
+
+.reading-text {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #95e1d3;
+  line-height: 1.6;
+  margin: 20px 0;
+  font-size: 1.1rem;
+}
+
+.questions-list {
+  margin-top: 25px;
+}
+
+.question-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.question {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #2d3436;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: #4ecdc4;
+}
+
+.check-answers-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.check-answers-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Навигация */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border: 3px solid #4ecdc4;
+  /* background: transparent; */
+  background: rgba(255, 255, 255, 0.6);
+  color: #4ecdc4;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #4ecdc4;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .lesson-detail-page {
+    flex-direction: column;
+    margin-top: 100px;
+  }
+  
+  .lesson-detail-left {
+    width: 100%;
+    position: static;
+    margin-bottom: 30px;
+  }
+  
+  .bookmark-tabs {
+    position: static;
+    margin-bottom: 20px;
+  }
+  
+  .bookmark-tab {
+    border-radius: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+  
+  .bookmark-tab::before,
+  .bookmark-tab::after {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .lesson-detail-page {
+    padding: 0 15px;
+    gap: 20px;
+  }
+  
+  .lesson-detail-left,
+  .lesson-detail-right {
+    padding: 20px;
+  }
+  
+  .bookmark-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .bookmark-tab {
+    flex: 1 0 calc(50% - 8px);
+    min-width: 120px;
+  }
+  
+  .practice-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+}

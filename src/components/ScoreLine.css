@@ -8,10 +8,10 @@
   border: 1px solid #ccc;
   color: #636e72;
   padding: 8px 12px;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: 600;
 }
 

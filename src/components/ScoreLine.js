@@ -5,10 +5,10 @@ const ScoreLine = () => {
   const [selectedLevels, setSelectedLevels] = useState([]);
 
   const levels = [
-    { id: 1, name: '1' },
-    { id: 2, name: '2' },
-    { id: 3, name: '3' },
-    { id: 4, name: '4' }
+    { id: 1, name: '🌱' },
+    { id: 2, name: '🌿' },
+    { id: 3, name: '🌳' },
+    { id: 4, name: '🚀' }
   ];
 
   const toggleLevel = (levelId) => {
