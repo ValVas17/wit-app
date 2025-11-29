@@ -6,9 +6,12 @@ import { TopPassButton } from "./TopPassButton";
 import { SignInForm } from "./SignInForm";
 import wit_img from './img/изображение.png';
 import Modal from "./Modal";
+import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "./ThemeContext";
 
 export const Header = (props) => {
     const [modal, setModal] = useState(false);
+    const { isDark } = useTheme();
 
     const toggleModal = () => {
         setModal(!modal)
@@ -38,6 +41,10 @@ export const Header = (props) => {
         document.body.classList.remove('active-modal')
     }
 
+    useEffect(() => {
+        document.body.className = isDark ? 'dark-theme' : 'light-theme';
+    }, [isDark]);
+
 
     return (
         <header className="header-glass">
@@ -49,11 +56,12 @@ export const Header = (props) => {
                         <li className="header-padding"><TopActiveButton text='Lesson' /></li>
                         <li className="header-padding"><TopPassButton text='Lesson' /></li>
                         <li className="header-padding"><TopPassButton text='Lesson' /></li>
+                        <li><ThemeToggle /></li>
                         <li className="header-padding">
-                        <div className="user-info">
-                            <div className="user-avatar">👤</div>
-                            <span className="user-name">User Name</span>
-                        </div>
+                            <div className="user-info">
+                                <div className="user-avatar">👤</div>
+                                <span className="user-name">User Name</span>
+                            </div>
                         </li>
                         {/* <li><MainButton text='Sign in' onClick={toggleModal}/></li> */}
                         <li className="header-padding">

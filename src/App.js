@@ -9,11 +9,13 @@ import img9 from './components/img/image9.jpg'
 import ScoreLine from './components/ScoreLine';
 import Footer from './components/Footer';
 import LessonDetail from './components/LessonDetail';
+import { ThemeProvider } from './components/ThemeContext';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <ThemeProvider>
+       {/* <div className="App"> */}
         <div className="background-blobs">
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
@@ -98,7 +100,8 @@ class App extends Component {
         </div>
 
         <Footer />
-      </div>
+      {/* </div> */}
+      </ThemeProvider>
     );
   }
 }

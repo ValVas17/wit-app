@@ -1,38 +1,39 @@
 .footer-minimal {
   background: rgba(255, 255, 255, 0.1);
-  /* backdrop-filter: blur(15px); */
   border-top: 1px solid rgba(255, 255, 255, 0.4);
   margin-top: 80px;
   padding: 40px 0;
   width: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2)
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  grid-row: 3;
 }
 
-.footer-minimal {
-  grid-row: 3;
-} 
+.footer-minimal-content {
+  text-align: center; /* Добавляем выравнивание по центру */
+}
 
 .footer-brand {
   margin-bottom: 20px;
+  text-align: center; /* Центрируем содержимое бренда */
 }
 
 .footer-logo {
   font-size: 1.5rem;
   font-weight: 700;
-  /* text-shadow: 0 0.8px 0.8px rgba(0, 0, 0, 0.6); */
   background: #ff6b6b;
-  /* background: linear-gradient(135deg, #ff6b6b, #4ecdc4); */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   display: block;
   margin-bottom: 10px;
+  /* Добавляем автоматические отступы слева/справа для центрирования */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer-brand p {
   color: #b8b8b8;
   text-shadow: 0 0.8px 0.8px rgba(0, 0, 0, 0.6);
-  /* text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6); */
   font-size: 0.9rem;
   max-width: 400px;
   margin: 0 auto;
@@ -61,8 +62,8 @@
 .footer-copyright {
   color: #b8b8b8;
   text-shadow: 0 0.8px 0.8px rgba(0, 0, 0, 0.6);
-  /* text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6); */
   font-size: 0.85rem;
+  text-align: center; /* Центрируем текст копирайта */
 }
 
 @media (max-width: 768px) {
