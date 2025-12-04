@@ -38,10 +38,10 @@
   font-weight: 700;
   color: #2d3436;
   margin: 24px;
-  text-align: center;
+  /* text-align: right; */
   position: relative;
   display: inline-block;
-  left: 45%;
+  left: 75%;
   transform: translateX(-50%);
 }
 
