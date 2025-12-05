@@ -3,11 +3,11 @@ package com.wit.controller;
 import com.wit.entity.Lesson;
 import com.wit.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController                     // возвращает JSON - @Controller + @ResponseBody
 @RequestMapping("/api/lessons")
@@ -22,9 +22,10 @@ public class LessonController {
     
     @GetMapping
     public List<Lesson> getAllLessons() {
-        List<Lesson> lessons = lessonRepository.findAll();
-        System.out.println("📦 Отправляю уроки: " + lessons.size() + " шт.");
-        return lessons;
+        return lessonRepository.findAllWithSkills();
+        // List<Lesson> lessons = lessonRepository.findAll();
+        // System.out.println("📦 Отправляю уроки: " + lessons.size() + " шт.");
+        // return lessons;
     }
     
     // Тестовый endpoint для проверки подключения

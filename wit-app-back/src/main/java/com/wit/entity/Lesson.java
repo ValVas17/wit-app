@@ -2,10 +2,14 @@ package com.wit.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity                         // "это таблица БД"
 @Table(name = "lessons")        // "конкретно таблица lessons"
 public class Lesson {
+
     @Id                         // "это primary key"
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -37,6 +41,23 @@ public class Lesson {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    // Связь many-to-many с навыками
+    // @ManyToMany
+    // @JoinTable(
+    //     name = "lesson_skills",  // Имя промежуточной таблицы
+    //     joinColumns = @JoinColumn(name = "lesson_id"),  // Столбец для урока
+    //     inverseJoinColumns = @JoinColumn(name = "skill_id")  // Столбец для навыка
+    // )
+    // private Set<Skill> skills = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "lesson_skills",
+        joinColumns = @JoinColumn(name = "lesson_id"),
+        inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    @JsonIgnoreProperties("lessons")  // Игнорируем поле "lessons" в Skill
+    private Set<Skill> skills = new HashSet<>();
+
     // Конструкторы (Пустой нужен   Spring)
     public Lesson() {}
 
@@ -62,12 +83,19 @@ public class Lesson {
     public Integer getSortOrder() { return sortOrder; }
     public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
 
-    // public String getLed() { return led; }
-    // public void setLed(String led) { this.led = led; }
-
-    // public LocalDateTime getCreatedAt() { return createdAt; }
-    // public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
+    public Set<Skill> getSkills() { return skills; }
+    public void setSkills(Set<Skill> skills) { this.skills = skills; }
+    
+    public void addSkill(Skill skill) {
+        this.skills.add(skill);
+        skill.getLessons().add(this);
+    }
+    
+    public void removeSkill(Skill skill) {
+        this.skills.remove(skill);
+        skill.getLessons().remove(this);
+    }
 }

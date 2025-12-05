@@ -10,7 +10,7 @@ const LessonsList = () => {
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        console.log('🔄 Загружаю уроки с бэкенда...');
+        console.log('🔄 Загружаю уроки...');
 
         const response = await fetch('http://localhost:8080/api/lessons');
 
@@ -20,6 +20,16 @@ const LessonsList = () => {
 
         const data = await response.json();
         console.log('✅ Получены уроки:', data);
+
+        // Проверяем структуру данных
+        data.forEach(lesson => {
+          console.log(`Урок ${lesson.title}:`, {
+            id: lesson.id,
+            skillsCount: lesson.skills?.length || 0,
+            skills: lesson.skills?.map(s => s.name) || []
+          });
+        });
+
         setLessons(data);
 
       } catch (err) {
@@ -33,42 +43,31 @@ const LessonsList = () => {
     fetchLessons();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p>Загружаем уроки с сервера...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="error-container">
-        <h3>Ошибка загрузки</h3>
-        <p>{error}</p>
-        <button onClick={() => window.location.reload()}>
-          Попробовать снова
-        </button>
-      </div>
-    );
-  }
+  if (loading) return <div>Loading lessons...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (lessons.length === 0) return <div>No lessons found</div>;
 
   return (
     <div className="lessons-container">
       {/* <div className="lessons-title">{lessons.length} lessons available</div> */}
 
-      {lessons.map(lesson => (
-        <Lesson lessonNumber={lesson.number}
-          label='Freshman'
-          title={lesson.title}
-          description={lesson.description}
-          skills={['vocabulary', 'reading', 'listening']}
-          imageSrc={lesson.imgSrc}
-          score='2'
-          level='7'
-          state='3' />
-      ))}
+      {lessons.map(lesson => {
+        const skillNames = lesson.skills
+          ? lesson.skills.map(skill => skill.name)
+          : [];
+
+        return (
+          <Lesson lessonNumber={lesson.number}
+            label='Freshman'
+            title={lesson.title}
+            description={lesson.description}
+            skills={skillNames}//{['vocabulary', 'reading', 'listening']}
+            imageSrc={lesson.imgSrc}
+            score='2'
+            level='7'
+            state='3' />
+        )
+      })}
 
 
       {/* <div className="lessons-grid">
