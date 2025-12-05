@@ -3,14 +3,14 @@ package com.wit.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "lessons")
+@Entity                         // "это таблица БД"
+@Table(name = "lessons")        // "конкретно таблица lessons"
 public class Lesson {
-    @Id
+    @Id                         // "это primary key"
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(name = "number")
+    @Column(name = "number")    // "это колонка таблицы"
     private Integer number;
 
     @Column(name = "level_id")
@@ -28,21 +28,21 @@ public class Lesson {
     @Column(name = "sort_order")
     private Integer sortOrder;
 
-    @Column(name = "led")
-    private String led;
+    // @Column(name = "led")
+    // private String led;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    // @Column(name = "created_at")
+    // private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Конструкторы
+    // Конструкторы (Пустой нужен   Spring)
     public Lesson() {}
 
     // Геттеры и сеттеры
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public Integer getNumber() { return number; }
     public void setNumber(Integer number) { this.number = number; }
@@ -62,11 +62,11 @@ public class Lesson {
     public Integer getSortOrder() { return sortOrder; }
     public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
 
-    public String getLed() { return led; }
-    public void setLed(String led) { this.led = led; }
+    // public String getLed() { return led; }
+    // public void setLed(String led) { this.led = led; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    // public LocalDateTime getCreatedAt() { return createdAt; }
+    // public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
