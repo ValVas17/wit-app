@@ -1,10 +1,12 @@
 .lesson-card {
-  width: 365px;
-  height: 360px;
+  width: 345px;
+  height: 370px;
   background: #ffffff;
   border-radius: 7px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
-  margin: 16px 0;
+  margin: 16px 8px;
+  padding: 0px 0px;
+  padding-bottom: 16px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -34,13 +36,14 @@
 } */
 
 /* Header Styles */
-.header {
-  width: 363px;
-  height: 70px;
+.lesson-header {
+  /* width: 363px; */
+  background-color: #ffe4e4;
+  height: 75px;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0; /* Запрещаем сжатие хедера */
+  /* align-items: center; */
+  /* gap: 160px; */
+  /* flex-shrink: 0;  */
 }
 
 .lesson-number-container {
@@ -78,12 +81,11 @@
   z-index: 3;
 }
 
-/* Обертка для основного контента */
 .lesson-content-wrapper {
-  flex: 1; /* Занимает все доступное пространство между хедером и футером */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0; /* Важно для корректного сжатия в flex-контейнере */
+  min-height: 0;
 }
 
 .lesson-content {
@@ -91,7 +93,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  flex: 1; /* Контент растягивается на всю доступную высоту */
+  flex: 1;
   padding: 0 8px;
 }
 
@@ -99,7 +101,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0; /* Для корректной работы overflow */
+  min-height: 0;
 }
 
 .lesson-title {
@@ -108,8 +110,8 @@
   color: #2d3748;
   margin: 0 0 8px 18px;
   line-height: 1.3;
-  padding-top: 18px;
-  /* padding-left: 18px; */
+  padding-top: 8px;
+  padding-left: 8px;
 }
 
 .lesson-desc {
@@ -118,10 +120,12 @@
   color: #718096;
   margin: 0 0 16px 0;
   line-height: 1.5;
-  flex: 1; /* Описание занимает доступное пространство */
-  overflow: hidden; /* Обрезаем длинный текст */
+  flex: 1; 
+  padding-left: 20px;
+  text-indent: 10px;
+  overflow: hidden; 
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Ограничиваем количество строк */
+  -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical;
 }
 
@@ -136,6 +140,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  padding-left: 10px;
   margin-top: auto; /* Прижимаем навыки к низу текстового контента */
   padding-bottom: 8px;
 }
@@ -190,8 +195,10 @@
 
 .line-container {
   height: 1px;
+  width: 300px;
+  border-bottom: 2px solid #c4bebd;
   background: linear-gradient(90deg, transparent 0%, #e2e8f0 50%, transparent 100%);
-  margin: 0 32px;
+  margin: 0 18px;
 }
 
 /* Footer Styles */
@@ -204,12 +211,13 @@
 
 .score {
   font-size: 14px;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   color: #4a5568;
-  background: #f7fafc;
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1px solid #e2e8f0;
+  /* background: #f7fafc; */
+  padding: 6px 8px;
+  border-radius: 10px;
+  /* border: 1px solid #e2e8f0; */
 }
 
 /* Responsive Design */
@@ -274,7 +282,7 @@
   overflow: visible;
   display: block;
   background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-  padding: 12px;
+  /* padding: 12px; */
   margin: 8px 8px;
   border-radius: 8px;
   border: 1px solid #e2e8f0;

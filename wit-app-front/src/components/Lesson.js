@@ -37,16 +37,14 @@ class Lesson extends Component {
 
         return (
             <div className="lesson-card">
-                {/* Header */}
-                <div className="header">
+                <div className="lesson-header">
                     <div className="lesson-number-container">
                         <div className="lesson-number-background">№{lessonNumber}</div>
                         <div className="lesson-number-foreground"></div>
                     </div>
-                    <div className="label">{label}</div>
+                    {/* <div className="label">{label}</div> */}
                 </div>  
 
-                {/* Основной контент с фиксированной высотой */}
                 <div className="lesson-content-wrapper">
                     <div className="lesson-content">
                         <div className="text-content">
@@ -75,7 +73,6 @@ class Lesson extends Component {
                     </div>
                 </div>
 
-                {/* Разделитель и футер - всегда внизу */}
                 <div className="bottom-section">
                     <div className="line-container"></div>
                     <div className="footer">

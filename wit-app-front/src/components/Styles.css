@@ -244,30 +244,25 @@ ui li {
 
 
 
-.lesson-card {
+/* .lesson-card {
   background-color: #fff;
   width: 300px;
   height: 270px; 
-  /* border: 1px solid #ccc;  */
   border-radius: 3px;
-  /* background-color: #fff;  */
-  /* padding: 4px; */
   margin: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
+} */
 
-.header {
+/* .header {
   width: 298px;
   height: 56px;
   display: flex;
   border-radius: 2px;
-  /* padding: 4px; */
   background-color: #F7DFCF;
   border: 1.5px solid #BEB4B2;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 20px; */
-}
+} */
 
 .lesson-number {
   height: 20px;
@@ -278,8 +273,6 @@ ui li {
   margin: 14px 18px;
   font-family: 'Inter', sans-serif;
   box-shadow: inset 0px 5px 5px rgba(0, 0, 0, 0.5);
-  /* border-radius: 5px; */
-  /* font-weight: bold; */
   font-size: 14px;
 }
 
@@ -293,19 +286,15 @@ ui li {
   background-color: #763C31;
   color: white;
   padding: 2px 2px;
-  /* padding-top: 3px; */
   margin: 0px 16px;
   font-family: 'Inter', sans-serif;
   box-shadow: inset 0px 5px 5px rgba(0, 0, 0, 0.4);
-  /* border-radius: 5px; */
-  /* font-weight: bold; */
   font-size: 14px;
 }
 .lesson-number-foreground {
   position: absolute;
   top: 18px;
   left: 15px;
-  /* left: -5px; */
   width: 44px;
   height: 22px;
   border: 1px solid rgb(65, 65, 65);
@@ -314,48 +303,46 @@ ui li {
   transform: rotate(-3deg);
 }
 
-.label {
+/* .label {
   height: 20px;
   width: 80px;
   background-color: #9BAD93;
-  color: #fff; /*#333;*/
   margin: 14px 18px;
   padding-top: 4px;
-  /* padding: 5px 15px; */
   border-radius: 12px;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
-}
+} */
 
-.content {
+/* .content {
   margin-bottom: 20px;
-}
+} */
 
-.lesson-content {
+/* .lesson-content {
   justify-content: space-between; 
   display: flex;
   gap: 1px
-}
+} */
 
-.lesson-title {
+/* .lesson-title {
   text-align: left;
   padding-left: 20px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-}
+} */
 
-.lesson-desc {
+/* .lesson-desc {
   text-indent: 10px;
   text-align: justify;
   width: 150px;
   padding-left: 20px;
   font-family: 'Inter', sans-serif;
   font-size: 10px;
-}
+} */
 
-.indent-paragraph {
+/* .indent-paragraph {
   text-indent: 30px;
-}
+} */
 
 /* Стили для параграфа контента */
 /* .content p { */
@@ -363,37 +350,16 @@ ui li {
   /* line-height: 1.5; Межстрочный интервал для удобочитаемости */
 /* } */
 
-.image-container {
-  /* height: 113px; */
-  /* width: 113px; */
-  text-align: right;
-  /* margin-bottom: 10px; */
-  margin-right: 8px;
-}
-
-.image-container img {
-  width: 110px;
-  /* height: 3px; */
-  /* max-width: 100%;  */
-  /* height: auto; */
-  margin-top: 10px;
-  border-radius: 5px; 
-}
-
-.skill-labels {
-  /* font-size: 8px; */
+/* .skill-labels {
   padding-left: 20px;
-  /* padding-top: 10px; */
   margin-top: 30px;
   margin-bottom: 3px;
-  /* padding-bottom: 1px; */
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-}
+} */
 
-.skill-label {
-  /* width: 67px; */
+/* .skill-label {
   height: 12px;
   background-color: #EBF6F3;
   color: #000; 
@@ -403,27 +369,18 @@ ui li {
   margin-bottom: 2px;
   border-radius: 6px;
   font-size: 8px;
-}
+} */
 
-.line-container {
+/* .line-container {
   width: 300px;
   padding-bottom: -5px;
-  /* margin-bottom: 50px; */
   border-bottom: 2px solid #BEB4B2;
   position: relative;
-}
+} */
 
 /* .footer {
   display: flex;
 } */
-
-.score {
-  font-family: 'Inter', sans-serif;
-  /* margin: 5px 0px; */
-  /* padding-top: 25px; */
-  font-size: 12px;
-  color: #000;
-}
 
 
 .banner-background {
