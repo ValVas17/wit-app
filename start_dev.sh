@@ -3,6 +3,29 @@
 FRONTEND_DIR="./wit-app-front"
 BACKEND_DIR="./wit-app-back"
 
+cleanup_on_exit() {
+    echo "--- Initiating cleanup: Stopping services and freeing ports ---"
+
+    # пытаемся убить процессы, которые мы запустили, по их PID.
+    if [ -n "$FRONTEND_PID" ]; then
+        echo "Killing frontend (PID $FRONTEND_PID)..."
+        kill -9 "$FRONTEND_PID" 2>/dev/null || true
+    fi
+    if [ -n "$BACKEND_PID" ]; then
+        echo "Killing backend (PID $BACKEND_PID)..."
+        kill -9 "$BACKEND_PID" 2>/dev/null || true
+    fi
+
+    # ищем и убиваем любые процессы, висящие на нужных портах.
+    echo "Ensuring ports 3000 and 8080 are free..."
+    sudo kill -9 $(sudo lsof -ti:8080 2>/dev/null) 2>/dev/null || true
+    sudo kill -9 $(sudo lsof -ti:3000 2>/dev/null) 2>/dev/null || true
+    echo "Cleanup complete. Ports 3000 and 8080 should now be free."
+    exit 0
+}
+
+trap cleanup_on_exit SIGINT
+
 # --- Запуск бэкенда в фоновом режиме ---
 echo "Starting Spring Boot backend..."
 cd "$BACKEND_DIR" || { echo "Error: Backend directory not found!"; exit 1; }
@@ -30,3 +53,6 @@ echo "----------------------------------------"
 
 # Ждём Ctrl+C
 wait -n $FRONTEND_PID $BACKEND_PID
+
+echo "One of the services terminated unexpectedly. Performing cleanup..."
+cleanup_on_exit
