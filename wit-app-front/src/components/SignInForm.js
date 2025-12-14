@@ -47,17 +47,31 @@ export const SignInForm = () => {
       const data = await response.json();
       console.log('Ответ от сервера:', data);
 
-      if (data.success) {
-        setMessage(`✅ ${data.message}`);
-        // Сохраняем данные пользователя
-        localStorage.setItem('user', JSON.stringify(data.user));
-        localStorage.setItem('isAuthenticated', 'true');
+      // if (data.success) {
+      //   setMessage(`✅ ${data.message}`);
+      //   localStorage.setItem('user', JSON.stringify(data.user));
+      //   localStorage.setItem('isAuthenticated', 'true');
         
-        // Перенаправляем через 1 секунду
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
-      } else {
+      //   setTimeout(() => {
+      //     window.location.href = '/';
+      //   }, 1000);
+      // } 
+      if (data.success) {
+          setMessage(`✅ ${data.message}`);
+          
+          // Сохраняем JWT токен и данные пользователя
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          localStorage.setItem('isAuthenticated', 'true');
+          
+          // Обновляем заголовок страницы
+          window.dispatchEvent(new Event('userLoggedIn'));
+          
+          setTimeout(() => {
+              window.location.href = '/';
+          }, 1000);
+      }
+      else {
         setMessage(`❌ ${data.message}`);
       }
     } catch (error) {

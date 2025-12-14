@@ -12,10 +12,65 @@ import { useTheme } from "./ThemeContext";
 export const Header = (props) => {
     const [modal, setModal] = useState(false);
     const { isDark } = useTheme();
+    const [user, setUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const toggleModal = () => {
         setModal(!modal)
     }
+
+    const validateToken = async (token) => {
+        try {
+            const response = await fetch('http://localhost:8080/api/auth/validate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token })
+            });
+            
+            if (!response.ok) {
+                handleLogout();
+            }
+        } catch (error) {
+            handleLogout();
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('isAuthenticated');
+        setUser(null);
+        setIsAuthenticated(false);
+        window.location.href = '/';
+    };
+
+    // Загружаем данные пользователя при монтировании
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const userData = localStorage.getItem('user');
+        
+        if (token && userData) {
+            setUser(JSON.parse(userData));
+            setIsAuthenticated(true);
+            
+            // Можно добавить проверку токена на сервере
+            validateToken(token);
+        }
+    }, []);
+
+    // Слушаем событие входа пользователя
+    useEffect(() => {
+        const handleUserLogin = () => {
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                setUser(JSON.parse(userData));
+                setIsAuthenticated(true);
+            }
+        };
+
+        window.addEventListener('userLoggedIn', handleUserLogin);
+        return () => window.removeEventListener('userLoggedIn', handleUserLogin);
+    }, []);
 
     useEffect(() => {
         const handleEscape = (event) => {
@@ -57,23 +112,35 @@ export const Header = (props) => {
                         <li className="header-padding"><TopPassButton text='Lesson' /></li>
                         <li className="header-padding"><TopPassButton text='Lesson' /></li>
                         <li><ThemeToggle /></li>
+                        {isAuthenticated && (
                         <li className="header-padding">
                             <div className="user-info">
                                 <div className="user-avatar">👤</div>
-                                <span className="user-name">User Name</span>
+                                <span className="user-name"> {user ? user.login : 'User Name'} </span>
+                                {isAuthenticated && (
+                                    <button 
+                                        onClick={handleLogout}
+                                        className="logout-button"
+                                        title="Выйти"
+                                    >
+                                        <div className="user-avatar">🚪</div>
+                                    </button>
+                                )}
                             </div>
                         </li>
-                        {/* <li><MainButton text='Sign in' onClick={toggleModal}/></li> */}
-                        <li className="header-padding">
-                            <div className='origin' onClick={toggleModal}>
-                                <div className="main-button-container">
-                                    <button className="main-button-background">Sign in</button>
-                                    <div className="main-button-foreground"></div>
-                                </div>
-                            </div>
-                        </li>
-                        {/* <button onClick={toggleModal}>Click</button> */}
+                        )}
+                       
 
+                        {!isAuthenticated && (
+                            <li className="header-padding">
+                                <div className='origin' onClick={toggleModal}>
+                                    <div className="main-button-container">
+                                        <button className="main-button-background">Sign in</button>
+                                        <div className="main-button-foreground"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        )}
 
                         {modal && (
                             <div className="modal">
@@ -83,7 +150,6 @@ export const Header = (props) => {
                                 </div>
                             </div>
                         )}
-                        {/* <li><MainButton text='eng'/></li> */}
                     </ul>
                 </div>
             </div>

@@ -3,13 +3,24 @@ package com.wit.service;
 import com.wit.entity.User;
 import com.wit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class UserService {
     
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login)
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+    }
 
     public User registerUser(String login, String email, String password) 
     {
@@ -21,7 +32,9 @@ public class UserService {
             throw new RuntimeException("Пользователь с таким email уже существует");
         }
         
-        User user = new User(login, email, password);
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = new User(login, email, encodedPassword);
         return userRepository.save(user);
     }
     
@@ -31,7 +44,7 @@ public class UserService {
                 .orElse(userRepository.findByEmail(loginOrEmail)
                 .orElseThrow(() -> new RuntimeException("Пользователь не найден")));
         
-        if (!user.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Неверный пароль");
         }
         
