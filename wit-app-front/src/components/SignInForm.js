@@ -13,6 +13,27 @@ export const SignInForm = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [modal, setModal] = useState(false);
+  
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetMessage, setResetMessage] = useState('');
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetToken, setResetToken] = useState('');
+  const [resetStep, setResetStep] = useState(1);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const toggleModal = () => {
+    setModal(!modal);
+    if (!modal) {
+      setResetStep(1);
+      setResetEmail('');
+      setResetMessage('');
+      setResetToken('');
+      setNewPassword('');
+      setConfirmPassword('');
+    }
+  };
 
   const handleSocialLogin = async (provider) => {
     setIsLoading(true);
@@ -36,7 +57,7 @@ export const SignInForm = () => {
         ? { loginOrEmail: email, password }
         : { login, email, password };
 
-      console.log(`Отправка запроса на ${url}`, requestBody);
+      console.log(`Sending request to ${url}`, requestBody);
 
       const response = await fetch(url, {
         method: 'POST',
@@ -45,33 +66,21 @@ export const SignInForm = () => {
       });
 
       const data = await response.json();
-      console.log('Ответ от сервера:', data);
+      console.log('Server answer:', data);
 
-      // if (data.success) {
-      //   setMessage(`✅ ${data.message}`);
-      //   localStorage.setItem('user', JSON.stringify(data.user));
-      //   localStorage.setItem('isAuthenticated', 'true');
-        
-      //   setTimeout(() => {
-      //     window.location.href = '/';
-      //   }, 1000);
-      // } 
       if (data.success) {
-          setMessage(`✅ ${data.message}`);
-          
-          // Сохраняем JWT токен и данные пользователя
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          localStorage.setItem('isAuthenticated', 'true');
-          
-          // Обновляем заголовок страницы
-          window.dispatchEvent(new Event('userLoggedIn'));
-          
-          setTimeout(() => {
-              window.location.href = '/';
-          }, 1000);
-      }
-      else {
+        setMessage(`✅ ${data.message}`);
+        
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('isAuthenticated', 'true');
+
+        window.dispatchEvent(new Event('userLoggedIn'));
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+      } else {
         setMessage(`❌ ${data.message}`);
       }
     } catch (error) {
@@ -79,6 +88,74 @@ export const SignInForm = () => {
       setMessage(`❌ Ошибка сети: ${error.message}`);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handlePasswordResetRequest = async (e) => {
+    e.preventDefault();
+    setResetLoading(true);
+    setResetMessage('');
+    setResetToken('');
+    
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/password/request-reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: resetEmail })
+      });
+      
+      if (response.ok) {
+        const data = await response.text();
+        setResetMessage(`✅ ${data}`);
+        setResetStep(2);
+      } else {
+        const error = await response.text();
+        setResetMessage(`❌ ${error}`);
+      }
+    } catch (error) {
+      setResetMessage(`❌ Ошибка сети: ${error.message}`);
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
+  const handlePasswordReset = async (e) => {
+    e.preventDefault();
+    setResetLoading(true);
+    setResetMessage('');
+    
+    if (newPassword !== confirmPassword) {
+      setResetMessage('❌ Passwords don`t match');
+      setResetLoading(false);
+      return;
+    }
+    
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/password/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email: resetEmail, 
+          token: resetToken, 
+          newPassword 
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.text();
+        setResetMessage(`✅ ${data}`);
+
+        setTimeout(() => {
+          toggleModal();
+        }, 2000);
+      } else {
+        const error = await response.text();
+        setResetMessage(`❌ ${error}`);
+      }
+    } catch (error) {
+      setResetMessage(`❌ Ошибка сети: ${error.message}`);
+    } finally {
+      setResetLoading(false);
     }
   };
 
@@ -94,6 +171,118 @@ export const SignInForm = () => {
       setAction('Sign up');
       setMessage(''); 
     }
+  };
+
+  const renderResetPasswordModal = () => {
+    if (!modal) return null;
+
+    return (
+      <div className="modal-overlay" onClick={toggleModal}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          
+          <div className="sign-in-form-wrapper">
+            <form className="sign-in-form" onSubmit={resetStep === 1 ? handlePasswordResetRequest : handlePasswordReset}>
+              <div className='sign-in-name'>Password recovery</div>
+              
+              {resetStep === 1 ? (
+                <>
+                  <p className="form-description">
+                    The instruction will be sent to your email.
+                  </p>
+                  
+                  <div className="input-group">
+                    <input
+                      type="email"
+                      value={resetEmail}
+                      onChange={(e) => setResetEmail(e.target.value)}
+                      placeholder=" "
+                      required
+                      disabled={resetLoading}
+                    />
+                    <label>Email</label>
+                  </div>
+                  
+                  <button 
+                    type="submit" 
+                    className="submit-button"
+                    disabled={resetLoading}
+                  >
+                    {resetLoading ? 'Sending...' : 'Send instructions'}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p className="form-description">
+                    Enter the token from the email.
+                  </p>
+                  
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      value={resetToken}
+                      onChange={(e) => setResetToken(e.target.value)}
+                      placeholder=" "
+                      required
+                      disabled={resetLoading}
+                    />
+                    <label>token</label>
+                  </div>
+                  
+                  <div className="input-group">
+                    <input
+                      type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder=" "
+                      required
+                      disabled={resetLoading}
+                      minLength="6"
+                    />
+                    <label>new password</label>
+                  </div>
+                  
+                  <div className="input-group">
+                    <input
+                      type="password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder=" "
+                      required
+                      disabled={resetLoading}
+                      minLength="6"
+                    />
+                    <label>repeat password</label>
+                  </div>
+                  
+                  <button 
+                    type="submit" 
+                    className="submit-button"
+                    disabled={resetLoading}
+                  >
+                    {resetLoading ? 'Changing password...' : 'Change password'}
+                  </button>
+                  
+                  <button 
+                    type="button" 
+                    className="back-button"
+                    onClick={() => setResetStep(1)}
+                    disabled={resetLoading}
+                  >
+                    ← Назад
+                  </button>
+                </>
+              )}
+              
+              {resetMessage && (
+                <div className={`message ${resetMessage.includes('✅') ? 'success' : 'error'}`}>
+                  {resetMessage}
+                </div>
+              )}
+            </form>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -176,7 +365,9 @@ export const SignInForm = () => {
           </div>
 
           {action === 'Sign in' && (
-            <a href="#" className="forgot-password">Forgot password?</a>
+            <a href="#" className="forgot-password" onClick={(e) => { e.preventDefault(); toggleModal(); }}>
+              Forgot password?
+            </a>
           )}
 
           <div className="form-actions">
@@ -222,6 +413,8 @@ export const SignInForm = () => {
           </div>
         </form>
       </div>
+      
+      {renderResetPasswordModal()}
     </div>
   );
 };

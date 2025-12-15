@@ -1,50 +1,20 @@
 import React, { useState, useEffect } from "react";
 import './Styles.css';
-import { MainButton } from "./MainButton";
 import { TopActiveButton } from "./TopActiveButton";
 import { TopPassButton } from "./TopPassButton";
 import { SignInForm } from "./SignInForm";
 import wit_img from './img/изображение.png';
-import Modal from "./Modal";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "./ThemeContext";
+import { Link } from 'react-router-dom';
 
 export const Header = (props) => {
     const [modal, setModal] = useState(false);
-    const { isDark } = useTheme();
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { isDark } = useTheme();
 
-    const toggleModal = () => {
-        setModal(!modal)
-    }
-
-    const validateToken = async (token) => {
-        try {
-            const response = await fetch('http://localhost:8080/api/auth/validate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token })
-            });
-            
-            if (!response.ok) {
-                handleLogout();
-            }
-        } catch (error) {
-            handleLogout();
-        }
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('isAuthenticated');
-        setUser(null);
-        setIsAuthenticated(false);
-        window.location.href = '/';
-    };
-
-    // Загружаем данные пользователя при монтировании
+    // Загружаем данные пользователя
     useEffect(() => {
         const token = localStorage.getItem('token');
         const userData = localStorage.getItem('user');
@@ -52,9 +22,6 @@ export const Header = (props) => {
         if (token && userData) {
             setUser(JSON.parse(userData));
             setIsAuthenticated(true);
-            
-            // Можно добавить проверку токена на сервере
-            validateToken(token);
         }
     }, []);
 
@@ -72,6 +39,19 @@ export const Header = (props) => {
         return () => window.removeEventListener('userLoggedIn', handleUserLogin);
     }, []);
 
+    const toggleModal = () => {
+        setModal(!modal);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('isAuthenticated');
+        setUser(null);
+        setIsAuthenticated(false);
+        window.location.href = '/';
+    };
+
     useEffect(() => {
         const handleEscape = (event) => {
             if (event.key === 'Escape') {
@@ -88,18 +68,9 @@ export const Header = (props) => {
         };
     }, [modal]);
 
-
-    if (modal) {
-        document.body.classList.add('active-modal')
-    }
-    else {
-        document.body.classList.remove('active-modal')
-    }
-
     useEffect(() => {
         document.body.className = isDark ? 'dark-theme' : 'light-theme';
     }, [isDark]);
-
 
     return (
         <header className="header-glass">
@@ -107,30 +78,54 @@ export const Header = (props) => {
                 <div className="header-content"></div>
                 <div className='origin'>
                     <ul>
-                        <li><img src={wit_img} className="header-logo" /></li>
-                        <li className="header-padding"><TopActiveButton text='Lesson' /></li>
-                        <li className="header-padding"><TopPassButton text='Lesson' /></li>
-                        <li className="header-padding"><TopPassButton text='Lesson' /></li>
-                        <li><ThemeToggle /></li>
-                        {isAuthenticated && (
-                        <li className="header-padding">
-                            <div className="user-info">
-                                <div className="user-avatar">👤</div>
-                                <span className="user-name"> {user ? user.login : 'User Name'} </span>
-                                {isAuthenticated && (
-                                    <button 
-                                        onClick={handleLogout}
-                                        className="logout-button"
-                                        title="Выйти"
-                                    >
-                                        <div className="user-avatar">🚪</div>
-                                    </button>
-                                )}
-                            </div>
+                        {/* Логотип с ссылкой на главную */}
+                        <li>
+                            <Link to="/">
+                                <img src={wit_img} className="header-logo" alt="Wit Logo" />
+                            </Link>
                         </li>
+                        
+                        {/* Навигационные кнопки */}
+                        <li className="header-padding">
+                            <Link to="/lessons">
+                                <TopActiveButton text='Lessons' />
+                            </Link>
+                        </li>
+                        <li className="header-padding">
+                            <Link to="/progress">
+                                <TopPassButton text='Progress' />
+                            </Link>
+                        </li>
+                        <li className="header-padding">
+                            <Link to="/profile">
+                                <TopPassButton text='Profile' />
+                            </Link>
+                        </li>
+                        
+                        {/* Переключатель темы */}
+                        <li><ThemeToggle /></li>
+                        
+                        {isAuthenticated && (
+                            <li className="header-padding">
+                                <div className="user-info">
+                                    <div className="user-avatar">👤</div>
+                                    <span className="user-name">
+                                        {user ? user.login : 'Guest'}
+                                    </span>
+                                    {isAuthenticated && (
+                                        <button 
+                                            onClick={handleLogout}
+                                            className="logout-button"
+                                            title="Выйти"
+                                        >
+                                            🚪
+                                        </button>
+                                    )}
+                                </div>
+                            </li>
                         )}
-                       
-
+                        
+                        {/* Кнопка входа/регистрации (модальное окно) */}
                         {!isAuthenticated && (
                             <li className="header-padding">
                                 <div className='origin' onClick={toggleModal}>
@@ -141,18 +136,20 @@ export const Header = (props) => {
                                 </div>
                             </li>
                         )}
-
-                        {modal && (
-                            <div className="modal">
-                                <div onClick={toggleModal} className="overlay"></div>
-                                <div className="modal-content">
-                                    <SignInForm />
-                                </div>
-                            </div>
-                        )}
                     </ul>
+                    
+                    {modal && (
+                        <div className="modal">
+                            <div onClick={toggleModal} className="overlay"></div>
+                            <div className="modal-content">
+                                <SignInForm onClose={() => setModal(false)} />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </header>
-    )
-}
+    );
+};
+
+export default Header;
